@@ -1,0 +1,8 @@
+Description	Adj_pvalue	Gene_Ratio	Domain
+"endomembrane system"	2.42015083931945e-15	"36/258"	"CC"
+"Golgi apparatus"	4.83771047183905e-09	"15/258"	"CC"
+"endoplasmic reticulum"	1.02666876925931e-08	"21/258"	"CC"
+"peroxisome"	8.78322400774633e-05	"7/258"	"CC"
+"microbody"	8.78322400774633e-05	"7/258"	"CC"
+"vacuole"	0.00013699730904818	"8/258"	"CC"
+"plasma membrane"	0.0206449932606557	"8/258"	"CC"

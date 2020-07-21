@@ -1,0 +1,5 @@
+Description	Adj_pvalue	Gene_Ratio	Domain
+"Golgi apparatus"	4.39449742957992e-06	"11/205"	"CC"
+"endomembrane system"	0.000149471712851025	"18/205"	"CC"
+"cytosol"	0.0101624284319427	"5/205"	"CC"
+"lipid binding"	0.00326688159948269	"11/560"	"MF"

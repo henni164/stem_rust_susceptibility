@@ -1,0 +1,64 @@
+Genotype	dpi	Enrichment_direction	Description	Adj_pvalue	Gene_Ratio	Domain
+Bd21-3	2	UP	"carbohydrate metabolic process"	0.00389215678288525	"16/111"	BP
+Bd21-3	2	DOWN	"photosynthesis"	0.0274160279524825	"12/281"	BP
+Bd21-3	4	DOWN	"carbohydrate binding"	0.0258265937646315	"27/947"	MF
+Bd21-3	4	DOWN	"photosynthesis"	0.0258766374757878	"23/767"	BP
+Bd21-3	6	UP	"DNA-binding transcription factor activity"	0.0444611125519792	"27/412"	MF
+W2691	2	DOWN	"cell wall"	0.0374353936385609	"5/56"	CC
+W2691	2	DOWN	"external encapsulating structure"	0.0374353936385609	"5/56"	CC
+W2691	4	DOWN	"motor activity"	0.00127585227083159	"19/2284"	MF
+W2691	4	DOWN	"pyrophosphatase activity"	0.00127585227083159	"19/2284"	MF
+W2691	4	DOWN	"hydrolase activity, acting on acid anhydrides"	0.00127585227083159	"19/2284"	MF
+W2691	4	DOWN	"hydrolase activity, acting on acid anhydrides, in phosphorus-containing anhydrides"	0.00127585227083159	"19/2284"	MF
+W2691	4	DOWN	"nucleoside-triphosphatase activity"	0.00127585227083159	"19/2284"	MF
+W2691	4	DOWN	"translation factor activity, RNA binding"	0.00236595312642672	"21/2284"	MF
+W2691	4	DOWN	"signaling receptor binding"	0.017210428808917	"4/2284"	MF
+W2691	4	DOWN	"photosynthesis"	9.52761489731666e-15	"63/1656"	BP
+W2691	4	DOWN	"cellular homeostasis"	6.68899854216586e-05	"41/1656"	BP
+W2691	4	DOWN	"homeostatic process"	6.68899854216586e-05	"41/1656"	BP
+W2691	4	DOWN	"regulation of biological quality"	6.68899854216586e-05	"41/1656"	BP
+W2691	4	DOWN	"chloroplast"	2.54547128347759e-13	"20/630"	CC
+W2691	4	DOWN	"plastid"	2.54547128347759e-13	"20/630"	CC
+W2691	4	DOWN	"thylakoid"	3.65861630263348e-09	"52/630"	CC
+W2691	6	UP	"endomembrane system"	3.20896772447716e-06	"58/1071"	CC
+W2691	6	UP	"cytoskeleton"	0.00031459195155086	"32/1071"	CC
+W2691	6	UP	"Golgi apparatus"	0.00169758520292726	"20/1071"	CC
+W2691	6	UP	"endoplasmic reticulum"	0.00233918219394289	"34/1071"	CC
+W2691	6	UP	"cytosol"	0.00434043854018631	"12/1071"	CC
+W2691	6	DOWN	"signaling receptor activity"	0.0203280159745511	"21/4445"	MF
+W2691	6	DOWN	"molecular transducer activity"	0.0203280159745511	"21/4445"	MF
+W2691	6	DOWN	"translation factor activity, RNA binding"	0.0203280159745511	"31/4445"	MF
+W2691	6	DOWN	"photosynthesis"	1.57738841569711e-28	"116/3055"	BP
+W2691	6	DOWN	"cellular homeostasis"	1.93071336460859e-09	"76/3055"	BP
+W2691	6	DOWN	"homeostatic process"	1.93071336460859e-09	"76/3055"	BP
+W2691	6	DOWN	"regulation of biological quality"	1.93071336460859e-09	"76/3055"	BP
+W2691	6	DOWN	"thylakoid"	3.25130709143171e-20	"99/1108"	CC
+W2691	6	DOWN	"chloroplast"	1.11931114810128e-15	"27/1108"	CC
+W2691	6	DOWN	"plastid"	1.11931114810128e-15	"27/1108"	CC
+W2691-Sr9b	2	UP	"cytoskeleton"	0.0381033362890339	"3/37"	CC
+W2691-Sr9b	4	DOWN	"signaling receptor binding"	0.0107356741914736	"4/1628"	MF
+W2691-Sr9b	4	DOWN	"translation factor activity, RNA binding"	0.0107356741914736	"16/1628"	MF
+W2691-Sr9b	4	DOWN	"motor activity"	0.0209542072317783	"13/1628"	MF
+W2691-Sr9b	4	DOWN	"pyrophosphatase activity"	0.0209542072317783	"13/1628"	MF
+W2691-Sr9b	4	DOWN	"hydrolase activity, acting on acid anhydrides"	0.0209542072317783	"13/1628"	MF
+W2691-Sr9b	4	DOWN	"hydrolase activity, acting on acid anhydrides, in phosphorus-containing anhydrides"	0.0209542072317783	"13/1628"	MF
+W2691-Sr9b	4	DOWN	"nucleoside-triphosphatase activity"	0.0209542072317783	"13/1628"	MF
+W2691-Sr9b	4	DOWN	"photosynthesis"	1.19994507218999e-15	"54/1208"	BP
+W2691-Sr9b	4	DOWN	"cellular homeostasis"	5.15162187718408e-05	"33/1208"	BP
+W2691-Sr9b	4	DOWN	"homeostatic process"	5.15162187718408e-05	"33/1208"	BP
+W2691-Sr9b	4	DOWN	"regulation of biological quality"	5.15162187718408e-05	"33/1208"	BP
+W2691-Sr9b	4	DOWN	"thylakoid"	5.47252125105807e-11	"44/420"	CC
+W2691-Sr9b	4	DOWN	"chloroplast"	3.1504449311711e-08	"13/420"	CC
+W2691-Sr9b	4	DOWN	"plastid"	3.1504449311711e-08	"13/420"	CC
+W2691-Sr9b	6	UP	"endoplasmic reticulum"	0.00095369716383278	"29/809"	CC
+W2691-Sr9b	6	UP	"endomembrane system"	0.00504954629798296	"39/809"	CC
+W2691-Sr9b	6	UP	"cytosol"	0.0322707580785437	"9/809"	CC
+W2691-Sr9b	6	DOWN	"translation factor activity, RNA binding"	0.00218165098105631	"31/3880"	MF
+W2691-Sr9b	6	DOWN	"signaling receptor binding"	0.0360275641312652	"5/3880"	MF
+W2691-Sr9b	6	DOWN	"photosynthesis"	8.5744456135413e-29	"109/2708"	BP
+W2691-Sr9b	6	DOWN	"cellular homeostasis"	2.90998816778752e-10	"72/2708"	BP
+W2691-Sr9b	6	DOWN	"homeostatic process"	2.90998816778752e-10	"72/2708"	BP
+W2691-Sr9b	6	DOWN	"regulation of biological quality"	2.90998816778752e-10	"72/2708"	BP
+W2691-Sr9b	6	DOWN	"thylakoid"	3.0910767203256e-19	"91/991"	CC
+W2691-Sr9b	6	DOWN	"chloroplast"	9.10957955282505e-16	"26/991"	CC
+W2691-Sr9b	6	DOWN	"plastid"	9.10957955282505e-16	"26/991"	CC

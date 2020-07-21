@@ -1,0 +1,4 @@
+Description	Adj_pvalue	Gene_Ratio	Domain
+"endoplasmic reticulum"	1.15503332081596e-06	"13/127"	"CC"
+"endomembrane system"	2.0239973729641e-06	"16/127"	"CC"
+"cytoskeleton"	0.000376944275076129	"9/127"	"CC"

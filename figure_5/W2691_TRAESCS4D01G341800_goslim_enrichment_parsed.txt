@@ -1,0 +1,3 @@
+Description	Adj_pvalue	Gene_Ratio	Domain
+"response to abiotic stimulus"	1.51663214265709e-05	"10/439"	"BP"
+"cytosol"	0.0239153718913152	"4/168"	"CC"

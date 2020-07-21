@@ -1,0 +1,3 @@
+Description	Adj_pvalue	Gene_Ratio	Domain
+"carbohydrate binding"	1.24089616997641e-05	"5/18"	"MF"
+"DNA-binding transcription factor activity"	0.0283950301928319	"3/18"	"MF"

@@ -1,0 +1,12 @@
+Description	Adj_pvalue	Gene_Ratio	Domain
+"cellular component organization"	0.000410056131719319	"17/113"	"BP"
+"cellular component organization or biogenesis"	0.000410056131719319	"17/113"	"BP"
+"nucleoplasm"	0.000136146915158032	"8/71"	"CC"
+"membrane-enclosed lumen"	0.000711895759603725	"8/71"	"CC"
+"nuclear lumen"	0.000711895759603725	"8/71"	"CC"
+"organelle lumen"	0.000711895759603725	"8/71"	"CC"
+"intracellular organelle lumen"	0.000711895759603725	"8/71"	"CC"
+"organelle part"	0.00225327906021343	"8/71"	"CC"
+"nuclear part"	0.00225327906021343	"8/71"	"CC"
+"intracellular organelle part"	0.00225327906021343	"8/71"	"CC"
+"chromatin binding"	0.0281995272131325	"3/166"	"MF"
