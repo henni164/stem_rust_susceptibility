@@ -11,7 +11,7 @@ library(cowplot)
 
 ## Data exploration for figure 3
 # Directory for expression matrix files
-setwd("~/Documents/GitHub/cory/MPGI/figure3")
+setwd("~/Documents/GitHub/stem_rust_susceptibility1/figure_3")
 
 #Import filtered wheat and brachy expression matrices
 d_wheat_1 <- read.csv("updated_fig3_wheat_filtered6.csv", header = TRUE, sep = ",", row.names = 1)
@@ -147,9 +147,11 @@ ADH_plot <- ggplot(ADH_sub, aes(x= Day,
                     color = Genotype)) +
   geom_line() +
   geom_point(size = 0.75) +
+  annotate(geom = "point", x = 6.1, y = 2.15, color = "red", size = 1.5) +
+  annotate(geom = "point", x = 6.1, y = 1.9, color = "red", size = 1.5) +
   labs(x = NULL,
        y = expression(paste(log[2], " fold change", sep = ""))) +
-  scale_color_manual(values = c("#00ADB5", "#F8B500", "#FC3C3C"), breaks = c("W2691", "W2691 + Sr9b", "Bd21-3"), labels = c("W2691", expression(paste("W2691+", italic("Sr9b"))), "Bd21-3")) +
+  scale_color_manual(values = c("#00ADB5", "#F8B500", "#FC3C3C"), labels = c("W2691", expression(paste("W2691+", italic("Sr9b"))), "Bd21-3")) +
   scale_x_continuous(breaks = c(2,4,6)) +
   scale_y_continuous(breaks = c(-0.5, 0, 0.5, 1, 1.5, 2), labels = c(" ", 0, " ", 1, " ", 2)) +
   theme(panel.background = element_blank(), 
@@ -169,6 +171,8 @@ BI1_plot <- ggplot(BI1_sub, aes(x= Day,
                     color = Genotype)) +
   geom_line() +
   geom_point(size = 0.75) +
+  annotate(geom = "point", x = 6.1, y = 3.4, color = "red", size = 1.5) +
+  annotate(geom = "point", x = 6.1, y = 1.78, color = "red", size = 1.5) +
   labs(x = NULL,
        y = NULL) +
   scale_color_manual(guide = FALSE, values = c("#00ADB5", "#F8B500", "#FC3C3C")) +
@@ -188,6 +192,10 @@ DMR6_plot <- ggplot(DMR6_sub, aes(x= Day,
                                   color = Genotype)) +
   geom_line() +
   geom_point(size = 0.75) +
+  annotate(geom = "point", x = 6.1, y = 3.7, color = "red", size = 1.5) +
+  annotate(geom = "point", x = 6.1, y = 3.8, color = "red", size = 1.5) +
+  annotate(geom = "point", x = 6.1, y = -1.33, color = "red", size = 1.5) +
+  annotate(geom = "point", x = 6.1, y = -1.49, color = "red", size = 1.5) +
   labs(x = NULL,
        y = NULL) +
   scale_color_manual(guide = FALSE, values = c("#00ADB5", "#F8B500", "#FC3C3C")) +
@@ -207,6 +215,8 @@ DND1_plot <- ggplot(DND1_sub, aes(x= Day,
                                   color = Genotype)) +
   geom_line() +
   geom_point(size = 0.75) +
+  annotate(geom = "point", x = 6.1, y = 2.06, color = "red", size = 1.5) +
+  annotate(geom = "point", x = 6.1, y = 0.83, color = "red", size = 1.5) +
   labs(x = "dpi",
        y = expression(paste(log[2], " fold change", sep = ""))) +
   scale_color_manual(guide = FALSE, values = c("#00ADB5", "#F8B500", "#FC3C3C")) +
@@ -228,6 +238,8 @@ VAD1_plot <- ggplot(VAD1_sub, aes(x= Day,
                                   color = Genotype)) +
   geom_line() +
   geom_point(size = 0.75) +
+  annotate(geom = "point", x = 6.1, y = 2.62, color = "red", size = 1.5) +
+  annotate(geom = "point", x = 6.1, y = 1.34, color = "red", size = 1.5) +
   labs(x = "dpi",
        y = NULL, size = 10) +
   scale_color_manual(guide = FALSE, values = c("#00ADB5", "#F8B500", "#FC3C3C")) +
@@ -249,6 +261,8 @@ PMR4_plot <- ggplot(PMR4_sub, aes(x= Day,
                                   color = Genotype)) +
   geom_line() +
   geom_point(size = 0.75) +
+  annotate(geom = "point", x = 6.1, y = 2.18, color = "red", size = 1.5) +
+  annotate(geom = "point", x = 6.1, y = 1.95, color = "red", size = 1.5) +
   labs(x = "dpi",
        y = NULL, size = 10) +
     scale_color_manual(guide = FALSE, values = c("#00ADB5", "#F8B500", "#FC3C3C")) +
