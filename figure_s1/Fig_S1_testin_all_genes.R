@@ -28,7 +28,7 @@ d_wheat <- cbind(d_wheat_1[,1], d_wheat_scaled)
 d_bd21_scaled <- d_bd21_1[,2:19] + 0.001
 d_bd21 <- cbind(d_bd21_1[,1], d_bd21_scaled)
 
-metadat_dat <- read.delim("fig3_metadata.txt", header = TRUE, sep = "\t")
+metadat_dat <- read.delim("figs1_metadata.txt", header = TRUE, sep = "\t")
 colnames(metadat_dat) <- c("S_gene", "OG")
 
 
