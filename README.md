@@ -12,6 +12,5 @@ cdhirsch@umn.edu
 
 Repository organization
 
-	Scripts + files are organized according to which figure they were used to create.
-	One folder (longest_transcript_perl) contains 3 scripts that get the longest transcript from a protein sequence file
-	
+Scripts + files are organized according to which figure they were used to create.
+One folder (/longest_transcript_perl) contains 3 scripts that get the longest transcript from a protein sequence file
