@@ -2,61 +2,61 @@
 ## Melania, Marisa, Cory
 
 # Load necessary libraries
-library(ggplot2)
-library(dplyr)
-library(plotrix)
-
-# Change working directory to appropriate location
-setwd("~/Documents/GitHub/cory/MPGI/figure1/")
-
-# Read in data
-data_1e <- read.delim("fig_1e_data_raw.csv", header = TRUE, sep = ",", colClasses=c(rep("factor", 2), c(rep("numeric", 2))))
-
-# Change DPI field to be numeric
-data_1e$Dpi <- as.numeric(as.character(data_1e$Dpi))
-
-# Set theme to be classic
-theme_set(theme_classic() + 
-              theme(legend.text=element_text(size=10),
-                    axis.text=element_text(size=10),
-                    axis.title = element_text(size=10),
-                    strip.text.x = element_text(size = 10)
-                    )
-          )
-
-# Set up plot for Figure 1E
-my_labels <- c(expression(paste("W2691+", italic("Sr9b"))))
-p_1e <- ggplot(data_1e, aes(x = Dpi, 
-                            y = pg,
-                            color = Genotype,
-                            group = Genotype) )+
-    geom_line(size=0.5) +
-    geom_point(size=1) +
-    geom_errorbar(aes(ymin = pg-SE,
-                      ymax = pg+SE), 
-                  width=.2,
-                  alpha=.75,
-                  color="black" ) +
-    scale_color_manual(values = c("chartreuse3", "chocolate1", "blue1")) +
-    theme(strip.background = element_blank(),
-          strip.text.y = element_blank(),
-          legend.position = "none",
-          axis.text = element_text(color="black"),
-          plot.margin=unit(c(.4,0,0.1,0.1), "cm") ) +
-    guides(fill=guide_legend(title=NULL)) +
-    xlab("dpi") +
-    ylab("Relative\nAbundance (pg)") +
-    scale_y_continuous(breaks=c(0,5,10)) +
-    scale_x_continuous(breaks=c(2,4,6), limits=c(1.75,8.2)) +
-    annotate("text", label="W2691", x=6.71, y=9.6, color="chocolate1") +
-    annotate("text", label="W2691+italic(Sr9b)", parse=TRUE, x=7.3, y=6.3, color="blue1") +
-    annotate("text", label="Bd21-3", x=6.75, y=2, color="chartreuse3")
-
-    
-# Print plot for manuscript for Figure 1E
-pdf("Fig_1E.pdf", width=3.53, height=1.25, pointsize=8)
-p_1e
-dev.off()
+# library(ggplot2)
+# library(dplyr)
+# library(plotrix)
+# 
+# # Change working directory to appropriate location
+# setwd("~/Documents/GitHub/cory/MPGI/figure1/")
+# 
+# # Read in data
+# data_1e <- read.delim("fig_1e_data_raw.csv", header = TRUE, sep = ",", colClasses=c(rep("factor", 2), c(rep("numeric", 2))))
+# 
+# # Change DPI field to be numeric
+# data_1e$Dpi <- as.numeric(as.character(data_1e$Dpi))
+# 
+# # Set theme to be classic
+# theme_set(theme_classic() + 
+#               theme(legend.text=element_text(size=10),
+#                     axis.text=element_text(size=10),
+#                     axis.title = element_text(size=10),
+#                     strip.text.x = element_text(size = 10)
+#                     )
+#           )
+# 
+# # Set up plot for Figure 1E
+# my_labels <- c(expression(paste("W2691+", italic("Sr9b"))))
+# p_1e <- ggplot(data_1e, aes(x = Dpi, 
+#                             y = pg,
+#                             color = Genotype,
+#                             group = Genotype) )+
+#     geom_line(size=0.5) +
+#     geom_point(size=1) +
+#     geom_errorbar(aes(ymin = pg-SE,
+#                       ymax = pg+SE), 
+#                   width=.2,
+#                   alpha=.75,
+#                   color="black" ) +
+#     scale_color_manual(values = c("chartreuse3", "chocolate1", "blue1")) +
+#     theme(strip.background = element_blank(),
+#           strip.text.y = element_blank(),
+#           legend.position = "none",
+#           axis.text = element_text(color="black"),
+#           plot.margin=unit(c(.4,0,0.1,0.1), "cm") ) +
+#     guides(fill=guide_legend(title=NULL)) +
+#     xlab("dpi") +
+#     ylab("Relative\nAbundance (pg)") +
+#     scale_y_continuous(breaks=c(0,5,10)) +
+#     scale_x_continuous(breaks=c(2,4,6), limits=c(1.75,8.2)) +
+#     annotate("text", label="W2691", x=6.71, y=9.6, color="chocolate1") +
+#     annotate("text", label="W2691+italic(Sr9b)", parse=TRUE, x=7.3, y=6.3, color="blue1") +
+#     annotate("text", label="Bd21-3", x=6.75, y=2, color="chartreuse3")
+# 
+#     
+# # Print plot for manuscript for Figure 1E
+# pdf("Fig_1E.pdf", width=3.53, height=1.25, pointsize=8)
+# p_1e
+# dev.off()
 
 
 
