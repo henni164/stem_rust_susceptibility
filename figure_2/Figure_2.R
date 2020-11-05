@@ -1,0 +1,442 @@
+#BiocManager::install("topGO")
+
+library(topGO)
+library(GO.db)
+library(data.table)
+library(dplyr)
+library(purrr)
+library(ggplot2)
+library(ggpubr)
+library(gtable)
+library(cowplot)
+
+# automated creation
+goterms <- as.data.frame(Term(GOTERM))
+setDT(goterms, keep.rownames = TRUE)[]
+colnames(goterms) <- c("GOID", "GOTERM")
+brachyGENESLIM2GO <- readMappings(file = "/Users/evahenningsen/Documents/MPGI_paper/Figure_2/brachy_goslims_space.txt")
+brachyGENESLIMUniverse <- names(brachyGENESLIM2GO)
+wheatGENESLIM2GO <- readMappings(file = "/Users/evahenningsen/Documents/MPGI_paper/Figure_2/wheat_goslims_space.txt")
+wheatslimUniverse <- names(wheatGENESLIM2GO)
+
+#brachypodium automation MF
+brachy_files <- list.files(path = "/Users/evahenningsen/Documents/MPGI_paper/Figure_2/GOSLIM_1.5_files/Bd21_3", pattern = ".csv", full.names = TRUE, recursive = FALSE)
+brachy_files <- as.vector(brachy_files)
+
+brachy_dat <- lapply(brachy_files, FUN = read.delim, sep = "\t", header = TRUE)
+
+brachy_slim <- lapply(brachy_dat, FUN = function(x) {
+  unique(as.character(x$GID))
+})
+
+brachy_genelist <- lapply(brachy_slim, function(y) {
+  factor(as.integer(brachyGENESLIMUniverse %in% y))
+})
+
+for (i in 1:6) {
+  names(brachy_genelist[[i]]) <- brachyGENESLIMUniverse
+}
+
+brachy_slim_results_list <- lapply(brachy_genelist, function(a) {
+  brachy_GOdata <- new("topGOdata", description = "brachy_slim", ontology = "MF", allGenes = a, annot = annFUN.gene2GO, gene2GO = brachyGENESLIM2GO)
+  brachy_results <- runTest(brachy_GOdata, algorithm = "weight01", statistic = "fisher")
+  brachy_prop <- termStat(brachy_GOdata)
+  setDT(brachy_prop, keep.rownames = TRUE)
+  colnames(brachy_prop) <- c("GOID", "Annotated", "Significant", "Expected")
+  brachy_results_score <- score(brachy_results)
+  brachy_results_score <- as.data.frame(brachy_results_score)
+  setDT(brachy_results_score, keep.rownames = TRUE)[]
+  colnames(brachy_results_score) <- c("GOID", "FISHERSCORE")
+  brachy_combined_results <- left_join(brachy_results_score, brachy_prop, by = "GOID")
+  brachy_combined_results
+})
+
+brachy_results_final <- lapply(brachy_slim_results_list, function(b) {
+  b[FISHERSCORE < 0.01]
+})
+
+genotype_list <- rep("Bd21-3", 6)
+day_list <- c(2,2,4,4,6,6)
+direction_list <-c("down","up","down","up","down","up")
+domain_list <- rep("MF", 6)
+
+for(k in 1:6) {
+  
+  brachy_results_final[[k]]$genotype <- rep(genotype_list[[k]], length(brachy_results_final[[k]]$GOID))
+  brachy_results_final[[k]]$day <- rep(day_list[[k]], length(brachy_results_final[[k]]$GOID))
+  brachy_results_final[[k]]$direction <- rep(direction_list[[k]], length(brachy_results_final[[k]]$GOID))
+  brachy_results_final[[k]]$domain <- rep(domain_list[[k]], length(brachy_results_final[[k]]$GOID))
+  
+}
+
+#W2691 automation
+W2691_files <- list.files(path = "/Users/evahenningsen/Documents/MPGI_paper/Figure_2/GOSLIM_1.5_files/W2691", pattern = ".csv", full.names = TRUE, recursive = FALSE)
+W2691_files <- as.vector(W2691_files)
+
+W2691_dat <- lapply(W2691_files, FUN = read.delim, sep = "\t", header = TRUE)
+
+W2691_slim <- lapply(W2691_dat, FUN = function(x) {
+  unique(as.character(x$GID))
+})
+
+W2691_genelist <- lapply(W2691_slim, function(y) {
+  factor(as.integer(wheatslimUniverse %in% y))
+})
+
+for (l in 1:6) {
+  names(W2691_genelist[[l]]) <- wheatslimUniverse
+}
+
+W2691_slim_results_list <- lapply(W2691_genelist, function(a) {
+  W2691_GOdata <- new("topGOdata", description = "W2691_slim", ontology = "MF", allGenes = a, annot = annFUN.gene2GO, gene2GO = wheatGENESLIM2GO)
+  W2691_results <- runTest(W2691_GOdata, algorithm = "weight01", statistic = "fisher")
+  W2691_prop <- termStat(W2691_GOdata)
+  setDT(W2691_prop, keep.rownames = TRUE)
+  colnames(W2691_prop) <- c("GOID", "Annotated", "Significant", "Expected")
+  W2691_results_score <- score(W2691_results)
+  W2691_results_score <- as.data.frame(W2691_results_score)
+  setDT(W2691_results_score, keep.rownames = TRUE)[]
+  colnames(W2691_results_score) <- c("GOID", "FISHERSCORE")
+  W2691_combined_results <- left_join(W2691_results_score, W2691_prop, by = "GOID")
+  W2691_combined_results
+})
+
+W2691_results_final <- lapply(W2691_slim_results_list, function(b) {
+  b[FISHERSCORE < 0.01]
+})
+
+genotype_list <- rep("W2691", 6)
+day_list <- c(2,2,4,4,6,6)
+direction_list <-c("down","up","down","up","down","up")
+domain_list <- rep("MF", 6)
+
+for(m in 1:6) {
+  
+  W2691_results_final[[m]]$genotype <- rep(genotype_list[[m]], length(W2691_results_final[[m]]$GOID))
+  W2691_results_final[[m]]$day <- rep(day_list[[m]], length(W2691_results_final[[m]]$GOID))
+  W2691_results_final[[m]]$direction <- rep(direction_list[[m]], length(W2691_results_final[[m]]$GOID))
+  W2691_results_final[[m]]$domain <- rep(domain_list[[m]], length(W2691_results_final[[m]]$GOID))
+  
+}
+
+## Sr9b automation
+
+Sr9b_files <- list.files(path = "/Users/evahenningsen/Documents/MPGI_paper/Figure_2/GOSLIM_1.5_files/Sr9b", pattern = ".csv", full.names = TRUE, recursive = FALSE)
+Sr9b_files <- as.vector(Sr9b_files)
+
+Sr9b_dat <- lapply(Sr9b_files, FUN = read.delim, sep = "\t", header = TRUE)
+
+Sr9b_slim <- lapply(Sr9b_dat, FUN = function(x) {
+  unique(as.character(x$GID))
+})
+
+Sr9b_genelist <- lapply(Sr9b_slim, function(y) {
+  factor(as.integer(wheatslimUniverse %in% y))
+})
+
+for (l in 1:6) {
+  names(Sr9b_genelist[[l]]) <- wheatslimUniverse
+}
+
+Sr9b_slim_results_list <- lapply(Sr9b_genelist, function(a) {
+  Sr9b_GOdata <- new("topGOdata", description = "Sr9b_slim", ontology = "MF", allGenes = a, annot = annFUN.gene2GO, gene2GO = wheatGENESLIM2GO)
+  Sr9b_results <- runTest(Sr9b_GOdata, algorithm = "weight01", statistic = "fisher")
+  Sr9b_prop <- termStat(Sr9b_GOdata)
+  setDT(Sr9b_prop, keep.rownames = TRUE)
+  colnames(Sr9b_prop) <- c("GOID", "Annotated", "Significant", "Expected")
+  Sr9b_results_score <- score(Sr9b_results)
+  Sr9b_results_score <- as.data.frame(Sr9b_results_score)
+  setDT(Sr9b_results_score, keep.rownames = TRUE)[]
+  colnames(Sr9b_results_score) <- c("GOID", "FISHERSCORE")
+  Sr9b_combined_results <- left_join(Sr9b_results_score, Sr9b_prop, by = "GOID")
+  Sr9b_combined_results
+})
+
+Sr9b_results_final <- lapply(Sr9b_slim_results_list, function(b) {
+  b[FISHERSCORE < 0.01]
+})
+
+genotype_list <- rep("Sr9b", 6)
+day_list <- c(2,2,4,4,6,6)
+direction_list <-c("down","up","down","up","down","up")
+domain_list <- rep("MF", 6)
+
+for(m in 1:6) {
+  
+  Sr9b_results_final[[m]]$genotype <- rep(genotype_list[[m]], length(Sr9b_results_final[[m]]$GOID))
+  Sr9b_results_final[[m]]$day <- rep(day_list[[m]], length(Sr9b_results_final[[m]]$GOID))
+  Sr9b_results_final[[m]]$direction <- rep(direction_list[[m]], length(Sr9b_results_final[[m]]$GOID))
+  Sr9b_results_final[[m]]$domain <- rep(domain_list[[m]], length(Sr9b_results_final[[m]]$GOID))
+  
+}
+
+#brachypodium automation CC
+
+brachy_CC_slim_results_list <- lapply(brachy_genelist, function(a) {
+  brachy_CC_GOdata <- new("topGOdata", description = "brachy_CC_slim", ontology = "CC", allGenes = a, annot = annFUN.gene2GO, gene2GO = brachyGENESLIM2GO)
+  brachy_CC_results <- runTest(brachy_CC_GOdata, algorithm = "weight01", statistic = "fisher")
+  brachy_CC_prop <- termStat(brachy_CC_GOdata)
+  setDT(brachy_CC_prop, keep.rownames = TRUE)
+  colnames(brachy_CC_prop) <- c("GOID", "Annotated", "Significant", "Expected")
+  brachy_CC_results_score <- score(brachy_CC_results)
+  brachy_CC_results_score <- as.data.frame(brachy_CC_results_score)
+  setDT(brachy_CC_results_score, keep.rownames = TRUE)[]
+  colnames(brachy_CC_results_score) <- c("GOID", "FISHERSCORE")
+  brachy_CC_combined_results <- left_join(brachy_CC_results_score, brachy_CC_prop, by = "GOID")
+  brachy_CC_combined_results
+})
+
+brachy_CC_results_final <- lapply(brachy_CC_slim_results_list, function(b) {
+  b[FISHERSCORE < 0.01]
+})
+
+genotype_list <- rep("Bd21-3", 6)
+day_list <- c(2,2,4,4,6,6)
+direction_list <-c("down","up","down","up","down","up")
+domain_list <- rep("CC", 6)
+
+for(k in 1:6) {
+  
+  brachy_CC_results_final[[k]]$genotype <- rep(genotype_list[[k]], length(brachy_CC_results_final[[k]]$GOID))
+  brachy_CC_results_final[[k]]$day <- rep(day_list[[k]], length(brachy_CC_results_final[[k]]$GOID))
+  brachy_CC_results_final[[k]]$direction <- rep(direction_list[[k]], length(brachy_CC_results_final[[k]]$GOID))
+  brachy_CC_results_final[[k]]$domain <- rep(domain_list[[k]], length(brachy_CC_results_final[[k]]$GOID))
+  
+}
+
+#brachypodium automation BP: No results so commented out
+
+# brachy_BP_slim_results_list <- lapply(brachy_genelist, function(a) {
+#   brachy_BP_GOdata <- new("topGOdata", description = "brachy_BP_slim", ontology = "BP", allGenes = a, annot = annFUN.gene2GO, gene2GO = brachyGENESLIM2GO)
+#   brachy_BP_results <- runTest(brachy_BP_GOdata, algorithm = "classic", statistic = "fisher")
+#   brachy_BP_results_score <- score(brachy_BP_results)
+#   brachy_BP_results_score <- as.data.frame(brachy_BP_results_score)
+#   setDT(brachy_BP_results_score, keep.rownames = TRUE)[]
+#   colnames(brachy_BP_results_score) <- c("GOID", "FISHERSCORE")
+#   brachy_BP_results_score
+# })
+# 
+# brachy_BP_results_final <- lapply(brachy_BP_slim_results_list, function(b) {
+#   b[FISHERSCORE < 0.01]
+# })
+# 
+# genotype_list <- rep("Bd21-3", 6)
+# day_list <- c(2,2,4,4,6,6)
+# direction_list <-c("down","up","down","up","down","up")
+# domain_list <- rep("BP", 6)
+# 
+# for(k in 1:6) {
+# 
+#   brachy_BP_results_final[[k]]$genotype <- rep(genotype_list[[k]], length(brachy_BP_results_final[[k]]$GOID))
+#   brachy_BP_results_final[[k]]$day <- rep(day_list[[k]], length(brachy_BP_results_final[[k]]$GOID))
+#   brachy_BP_results_final[[k]]$direction <- rep(direction_list[[k]], length(brachy_BP_results_final[[k]]$GOID))
+#   brachy_BP_results_final[[k]]$domain <- rep(domain_list[[k]], length(brachy_BP_results_final[[k]]$GOID))
+# 
+# }
+
+## W2691 CC
+W2691_CCslim_results_list <- lapply(W2691_genelist, function(a) {
+  W2691_CCGOdata <- new("topGOdata", description = "W2691_CCslim", ontology = "CC", allGenes = a, annot = annFUN.gene2GO, gene2GO = wheatGENESLIM2GO)
+  W2691_CCresults <- runTest(W2691_CCGOdata, algorithm = "weight01", statistic = "fisher")
+  W2691_CC_prop <- termStat(W2691_CCGOdata)
+  setDT(W2691_CC_prop, keep.rownames = TRUE)
+  colnames(W2691_CC_prop) <- c("GOID", "Annotated", "Significant", "Expected")
+  W2691_CCresults_score <- score(W2691_CCresults)
+  W2691_CCresults_score <- as.data.frame(W2691_CCresults_score)
+  setDT(W2691_CCresults_score, keep.rownames = TRUE)[]
+  colnames(W2691_CCresults_score) <- c("GOID", "FISHERSCORE")
+  W2691_CC_combined_results <- left_join(W2691_CCresults_score, W2691_CC_prop, by = "GOID")
+  W2691_CC_combined_results
+})
+
+W2691_CCresults_final <- lapply(W2691_CCslim_results_list, function(b) {
+  b[FISHERSCORE < 0.01]
+})
+
+genotype_list <- rep("W2691", 6)
+day_list <- c(2,2,4,4,6,6)
+direction_list <-c("down","up","down","up","down","up")
+domain_list <- rep("CC", 6)
+
+for(m in 1:6) {
+  
+  W2691_CCresults_final[[m]]$genotype <- rep(genotype_list[[m]], length(W2691_CCresults_final[[m]]$GOID))
+  W2691_CCresults_final[[m]]$day <- rep(day_list[[m]], length(W2691_CCresults_final[[m]]$GOID))
+  W2691_CCresults_final[[m]]$direction <- rep(direction_list[[m]], length(W2691_CCresults_final[[m]]$GOID))
+  W2691_CCresults_final[[m]]$domain <- rep(domain_list[[m]], length(W2691_CCresults_final[[m]]$GOID))
+  
+}
+
+## W2691 BP
+W2691_BPslim_results_list <- lapply(W2691_genelist, function(a) {
+  W2691_BPGOdata <- new("topGOdata", description = "W2691_BPslim", ontology = "BP", allGenes = a, annot = annFUN.gene2GO, gene2GO = wheatGENESLIM2GO)
+  W2691_BPresults <- runTest(W2691_BPGOdata, algorithm = "weight01", statistic = "fisher")
+  W2691_BP_prop <- termStat(W2691_BPGOdata)
+  setDT(W2691_BP_prop, keep.rownames = TRUE)
+  colnames(W2691_BP_prop) <- c("GOID", "Annotated", "Significant", "Expected")
+  W2691_BPresults_score <- score(W2691_BPresults)
+  W2691_BPresults_score <- as.data.frame(W2691_BPresults_score)
+  setDT(W2691_BPresults_score, keep.rownames = TRUE)[]
+  colnames(W2691_BPresults_score) <- c("GOID", "FISHERSCORE")
+  W2691_BP_combined_results <- left_join(W2691_BPresults_score, W2691_BP_prop, by = "GOID")
+  W2691_BP_combined_results
+})
+
+W2691_BPresults_final <- lapply(W2691_BPslim_results_list, function(b) {
+  b[FISHERSCORE < 0.01]
+})
+
+genotype_list <- rep("W2691", 6)
+day_list <- c(2,2,4,4,6,6)
+direction_list <-c("down","up","down","up","down","up")
+domain_list <- rep("BP", 6)
+
+for(m in 1:6) {
+  
+  W2691_BPresults_final[[m]]$genotype <- rep(genotype_list[[m]], length(W2691_BPresults_final[[m]]$GOID))
+  W2691_BPresults_final[[m]]$day <- rep(day_list[[m]], length(W2691_BPresults_final[[m]]$GOID))
+  W2691_BPresults_final[[m]]$direction <- rep(direction_list[[m]], length(W2691_BPresults_final[[m]]$GOID))
+  W2691_BPresults_final[[m]]$domain <- rep(domain_list[[m]], length(W2691_BPresults_final[[m]]$GOID))
+  
+}
+
+## Sr9b CC
+Sr9b_CCslim_results_list <- lapply(Sr9b_genelist, function(a) {
+  Sr9b_CCGOdata <- new("topGOdata", description = "Sr9b_CCslim", ontology = "CC", allGenes = a, annot = annFUN.gene2GO, gene2GO = wheatGENESLIM2GO)
+  Sr9b_CCresults <- runTest(Sr9b_CCGOdata, algorithm = "weight01", statistic = "fisher")
+  Sr9b_CC_prop <- termStat(Sr9b_CCGOdata)
+  setDT(Sr9b_CC_prop, keep.rownames = TRUE)
+  colnames(Sr9b_CC_prop) <- c("GOID", "Annotated", "Significant", "Expected")
+  Sr9b_CCresults_score <- score(Sr9b_CCresults)
+  Sr9b_CCresults_score <- as.data.frame(Sr9b_CCresults_score)
+  setDT(Sr9b_CCresults_score, keep.rownames = TRUE)[]
+  colnames(Sr9b_CCresults_score) <- c("GOID", "FISHERSCORE")
+  Sr9b_CC_combined_results <- left_join(Sr9b_CCresults_score, Sr9b_CC_prop, by = "GOID")
+  Sr9b_CC_combined_results
+})
+
+Sr9b_CCresults_final <- lapply(Sr9b_CCslim_results_list, function(b) {
+  b[FISHERSCORE < 0.01]
+})
+
+genotype_list <- rep("Sr9b", 6)
+day_list <- c(2,2,4,4,6,6)
+direction_list <-c("down","up","down","up","down","up")
+domain_list <- rep("CC", 6)
+
+for(m in 1:6) {
+  
+  Sr9b_CCresults_final[[m]]$genotype <- rep(genotype_list[[m]], length(Sr9b_CCresults_final[[m]]$GOID))
+  Sr9b_CCresults_final[[m]]$day <- rep(day_list[[m]], length(Sr9b_CCresults_final[[m]]$GOID))
+  Sr9b_CCresults_final[[m]]$direction <- rep(direction_list[[m]], length(Sr9b_CCresults_final[[m]]$GOID))
+  Sr9b_CCresults_final[[m]]$domain <- rep(domain_list[[m]], length(Sr9b_CCresults_final[[m]]$GOID))
+  
+}
+
+## Sr9b BP
+Sr9b_BPslim_results_list <- lapply(Sr9b_genelist, function(a) {
+  Sr9b_BPGOdata <- new("topGOdata", description = "Sr9b_BPslim", ontology = "BP", allGenes = a, annot = annFUN.gene2GO, gene2GO = wheatGENESLIM2GO)
+  Sr9b_BPresults <- runTest(Sr9b_BPGOdata, algorithm = "weight01", statistic = "fisher")
+  Sr9b_BP_prop <- termStat(Sr9b_BPGOdata)
+  setDT(Sr9b_BP_prop, keep.rownames = TRUE)
+  colnames(Sr9b_BP_prop) <- c("GOID", "Annotated", "Significant", "Expected")
+  Sr9b_BPresults_score <- score(Sr9b_BPresults)
+  Sr9b_BPresults_score <- as.data.frame(Sr9b_BPresults_score)
+  setDT(Sr9b_BPresults_score, keep.rownames = TRUE)[]
+  colnames(Sr9b_BPresults_score) <- c("GOID", "FISHERSCORE")
+  Sr9b_BP_combined_results <- left_join(Sr9b_BPresults_score, Sr9b_BP_prop, by = "GOID")
+  Sr9b_BP_combined_results
+})
+
+Sr9b_BPresults_final <- lapply(Sr9b_BPslim_results_list, function(b) {
+  b[FISHERSCORE < 0.01]
+})
+
+genotype_list <- rep("Sr9b", 6)
+day_list <- c(2,2,4,4,6,6)
+direction_list <-c("down","up","down","up","down","up")
+domain_list <- rep("BP", 6)
+
+for(m in 1:6) {
+  
+  Sr9b_BPresults_final[[m]]$genotype <- rep(genotype_list[[m]], length(Sr9b_BPresults_final[[m]]$GOID))
+  Sr9b_BPresults_final[[m]]$day <- rep(day_list[[m]], length(Sr9b_BPresults_final[[m]]$GOID))
+  Sr9b_BPresults_final[[m]]$direction <- rep(direction_list[[m]], length(Sr9b_BPresults_final[[m]]$GOID))
+  Sr9b_BPresults_final[[m]]$domain <- rep(domain_list[[m]], length(Sr9b_BPresults_final[[m]]$GOID))
+  
+}
+
+all_brachy_CC <- bind_rows(brachy_CC_results_final)
+
+all_brachy_MF <- bind_rows(brachy_results_final)
+
+all_W2691_MF <- bind_rows(W2691_results_final)
+
+all_W2691_CC <- bind_rows(W2691_CCresults_final)
+
+all_W2691_BP <- bind_rows(W2691_BPresults_final)
+
+all_Sr9b_MF <- bind_rows(Sr9b_results_final)
+
+all_Sr9b_CC <- bind_rows(Sr9b_CCresults_final)
+
+all_Sr9b_BP <- bind_rows(Sr9b_BPresults_final)
+
+all_results <- rbind(all_brachy_MF, all_brachy_CC, all_W2691_MF, all_W2691_CC, all_W2691_BP, all_Sr9b_MF, all_Sr9b_CC, all_Sr9b_BP)
+
+all_results_w_go_descriptions <- left_join(x = all_results, y = goterms, by = "GOID")
+all_results_w_go_descriptions$day <- as.factor(all_results_w_go_descriptions$day)
+all_results_w_go_descriptions$genotype <- as.factor(all_results_w_go_descriptions$genotype)
+all_results_w_go_descriptions$genotype <- factor(all_results_w_go_descriptions$genotype, levels=c("W2691", "Sr9b", "Bd21-3"))
+levels(all_results_w_go_descriptions$genotype) = c("W2691"=expression(paste("W2691")), "Sr9b"=expression(paste("W2691+", italic("Sr9b"))), "Bd21-3"=expression(paste("Bd21-3")))
+all_results_w_go_descriptions$GOTERM <- as.factor(all_results_w_go_descriptions$GOTERM)
+
+all_results_w_go_descriptions$OoverE <- all_results_w_go_descriptions$Significant/all_results_w_go_descriptions$Expected
+all_results_w_go_descriptions$OoverALL <- all_results_w_go_descriptions$Significant/all_results_w_go_descriptions$Annotated
+colnames(all_results_w_go_descriptions)[7] <- "dpi"
+
+all_results_w_go_descriptions$direction <- as.factor(all_results_w_go_descriptions$direction)
+all_results_w_go_descriptions$direction <- factor(all_results_w_go_descriptions$direction, levels = c("up", "down"))
+
+## For next time: fix font size and scale for printing
+topgo_figure2 <- ggplot(all_results_w_go_descriptions, aes(x=dpi, y=GOTERM, fill=OoverALL)) +
+  geom_tile(width=1, height=1) +
+  scale_fill_gradient2(low = "white", mid = "blue", high = "red", space = "Lab", name = "Significant:Annotated", breaks = c(0, 0.05, 0.1 ,0.15), labels = c("0", "0.05", "0.1", "0.15"), limits = c(0,0.15)) + 
+  facet_grid(direction + domain ~ genotype, scales = "free_y", labeller = label_parsed) +
+  theme(
+    axis.text.x = element_text(size = 10, color="black"),
+    axis.title = element_text(size = 10),
+    axis.text.y = element_text(size=8, color="black"),
+    axis.title.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.line = element_blank(),
+    panel.grid.major = element_line(color = "gray"),
+    panel.grid.minor = element_blank(),
+    #panel.background = element_rect(fill = "white"),
+    strip.background = element_rect(fill = "transparent", color = "white", size = 1),
+    #strip.text = element_text(face = "bold", size = 10, color = "black"),
+    strip.text = element_text(size = 10, color = "black"),
+    legend.position = "bottom",
+    legend.justification = "right",
+    legend.box = "horizontal",
+    #legend.box.background = element_rect(colour = "black"),
+    #legend.background = element_blank(),
+    panel.border = element_rect(color = "gray", fill = NA, size = 0.5),
+    panel.background = element_rect(fill = "transparent"),
+    plot.background = element_rect(fill = "transparent", color = NA),
+    legend.background = element_rect(fill = "transparent"),
+    #legend.box.background = element_rect(fill = "transparent"),
+    legend.box.background=element_blank(),
+    legend.text=element_text(size=10),
+    legend.title=element_text(size=10),
+    strip.text.x=element_text(size=10),
+    legend.key.height = unit(0.1, "in"))
+
+figure2_plot_more = ggplot_gtable(ggplot_build(topgo_figure2))
+#gtable_show_layout(figure2_plot_more)
+figure2_plot_more$heights[17] <- 0*figure2_plot_more$heights[17]
+as_ggplot(figure2_plot_more)
+
+
+ggsave(filename = "/Users/evahenningsen/Documents/MPGI_paper/Fig_2_GOSLIM.pdf", plot = figure2_plot_more, device = "pdf", width= 7.5, height=5, units = "in")
+

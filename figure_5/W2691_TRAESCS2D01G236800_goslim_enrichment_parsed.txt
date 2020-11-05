@@ -1,2 +1,0 @@
-Description	Adj_pvalue	Gene_Ratio	Domain
-"lipid binding"	0.00167071306114566	"4/67"	"MF"

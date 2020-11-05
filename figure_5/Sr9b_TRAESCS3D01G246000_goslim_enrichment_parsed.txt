@@ -1,2 +1,0 @@
-Description	Adj_pvalue	Gene_Ratio	Domain
-"cytosol"	0.00491713394207947	"6/263"	"CC"

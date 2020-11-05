@@ -1,4 +1,0 @@
-Description	Adj_pvalue	Gene_Ratio	Domain
-"response to endogenous stimulus"	0.0216344206084327	"1/2"	"BP"
-"endoplasmic reticulum"	0.0318708017721883	"1/1"	"CC"
-"endomembrane system"	0.0318708017721883	"1/1"	"CC"

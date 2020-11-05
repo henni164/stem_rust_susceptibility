@@ -1,3 +1,0 @@
-Description	Adj_pvalue	Gene_Ratio	Domain
-"plasma membrane"	0.024443237370994	"1/1"	"CC"
-"cell periphery"	0.0290602933188485	"1/1"	"CC"
