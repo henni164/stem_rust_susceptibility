@@ -601,15 +601,15 @@ combined_plot <- egg::ggarrange(W2691_plot5_fix, Sr9b_networks[[2]], Bd21_networ
 combined_plot_w_text <- ggdraw(combined_plot) + draw_label("W2691", x = 0.18, y = 0.98, size = 10, fontface = "bold") +
   draw_label("W2691+Sr9b", x = 0.53, y = 0.98, size = 10, fontface = "bold") + 
   draw_label("Bd21-3", x = 0.85, y = 0.98, size = 10, fontface = "bold") +
-  draw_label("4", x = 0.1, y = 0.96, size = 8, fontface = "bold") +
-  draw_label("122", x = 0.45, y = 0.96, size = 8, fontface = "bold") +
-  draw_label("652", x = 0.79, y = 0.96, size = 8, fontface = "bold") +
-  draw_label("0", x = 0.1, y = 0.66, size = 8, fontface = "bold") +
-  draw_label("0", x = 0.45, y = 0.66, size = 8, fontface = "bold") +
-  draw_label("3087", x = 0.79, y = 0.66, size = 8, fontface = "bold") +
-  draw_label("0", x = 0.1, y = 0.33, size = 8, fontface = "bold") +
-  draw_label("0", x = 0.45, y = 0.33, size = 8, fontface = "bold") +
-  draw_label("4", x = 0.79, y = 0.33, size = 8, fontface = "bold") +
+  draw_label("4", x = 0.06, y = 0.96, size = 8, fontface = "bold") +
+  draw_label("122", x = 0.38, y = 0.96, size = 8, fontface = "bold") +
+  draw_label("652", x = 0.7, y = 0.96, size = 8, fontface = "bold") +
+  draw_label("0", x = 0.06, y = 0.65, size = 8, fontface = "bold") +
+  draw_label("0", x = 0.38, y = 0.65, size = 8, fontface = "bold") +
+  draw_label("3087", x = 0.7, y = 0.65, size = 8, fontface = "bold") +
+  draw_label("0", x = 0.06, y = 0.32, size = 8, fontface = "bold") +
+  draw_label("0", x = 0.38, y = 0.32, size = 8, fontface = "bold") +
+  draw_label("4", x = 0.7, y = 0.32, size = 8, fontface = "bold") +
   draw_label("n = 556", x = 0.14, y = 0.78, color = "black", size = 8) +
   draw_label("n = 1", x = 0.23, y = 0.78, color = "red", size = 8) +
   draw_label("n = 20", x = 0.47, y = 0.78, color = "black", size = 8) +
