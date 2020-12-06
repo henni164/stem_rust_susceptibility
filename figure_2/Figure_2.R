@@ -14,13 +14,13 @@ library(cowplot)
 goterms <- as.data.frame(Term(GOTERM))
 setDT(goterms, keep.rownames = TRUE)[]
 colnames(goterms) <- c("GOID", "GOTERM")
-brachyGENESLIM2GO <- readMappings(file = "/Users/evahenningsen/Documents/MPGI_paper/Figure_2/brachy_goslims_space.txt")
+brachyGENESLIM2GO <- readMappings(file = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_2/brachy_goslims_space.txt")
 brachyGENESLIMUniverse <- names(brachyGENESLIM2GO)
-wheatGENESLIM2GO <- readMappings(file = "/Users/evahenningsen/Documents/MPGI_paper/Figure_2/wheat_goslims_space.txt")
+wheatGENESLIM2GO <- readMappings(file = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_2/wheat_goslims_space.txt")
 wheatslimUniverse <- names(wheatGENESLIM2GO)
 
 #brachypodium automation MF
-brachy_files <- list.files(path = "/Users/evahenningsen/Documents/MPGI_paper/Figure_2/GOSLIM_1.5_files/Bd21_3", pattern = ".csv", full.names = TRUE, recursive = FALSE)
+brachy_files <- list.files(path = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_2/GOSLIM_1.5_files/Bd21_3", pattern = ".csv", full.names = TRUE, recursive = FALSE)
 brachy_files <- as.vector(brachy_files)
 
 brachy_dat <- lapply(brachy_files, FUN = read.delim, sep = "\t", header = TRUE)
@@ -70,7 +70,7 @@ for(k in 1:6) {
 }
 
 #W2691 automation
-W2691_files <- list.files(path = "/Users/evahenningsen/Documents/MPGI_paper/Figure_2/GOSLIM_1.5_files/W2691", pattern = ".csv", full.names = TRUE, recursive = FALSE)
+W2691_files <- list.files(path = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_2/GOSLIM_1.5_files/W2691", pattern = ".csv", full.names = TRUE, recursive = FALSE)
 W2691_files <- as.vector(W2691_files)
 
 W2691_dat <- lapply(W2691_files, FUN = read.delim, sep = "\t", header = TRUE)
@@ -121,7 +121,7 @@ for(m in 1:6) {
 
 ## Sr9b automation
 
-Sr9b_files <- list.files(path = "/Users/evahenningsen/Documents/MPGI_paper/Figure_2/GOSLIM_1.5_files/Sr9b", pattern = ".csv", full.names = TRUE, recursive = FALSE)
+Sr9b_files <- list.files(path = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_2/GOSLIM_1.5_files/Sr9b", pattern = ".csv", full.names = TRUE, recursive = FALSE)
 Sr9b_files <- as.vector(Sr9b_files)
 
 Sr9b_dat <- lapply(Sr9b_files, FUN = read.delim, sep = "\t", header = TRUE)
@@ -401,7 +401,7 @@ all_results_w_go_descriptions$direction <- factor(all_results_w_go_descriptions$
 ## For next time: fix font size and scale for printing
 topgo_figure2 <- ggplot(all_results_w_go_descriptions, aes(x=dpi, y=GOTERM, fill=OoverALL)) +
   geom_tile(width=1, height=1) +
-  scale_fill_gradient2(low = "white", mid = "blue", high = "red", space = "Lab", name = "Significant:Annotated", breaks = c(0, 0.05, 0.1 ,0.15), labels = c("0", "0.05", "0.1", "0.15"), limits = c(0,0.15)) + 
+  scale_fill_gradient2(low = "white", mid = "pink", high = "red", midpoint = 0.03, space = "Lab", name = "Sig:Ann", breaks = c(0, 0.05, 0.1 ,0.15), labels = c("0", "0.05", "0.1", "0.15"), limits = c(0,0.15)) + 
   facet_grid(direction + domain ~ genotype, scales = "free_y", labeller = label_parsed) +
   theme(
     axis.text.x = element_text(size = 10, color="black"),
@@ -438,5 +438,5 @@ figure2_plot_more$heights[17] <- 0*figure2_plot_more$heights[17]
 as_ggplot(figure2_plot_more)
 
 
-ggsave(filename = "/Users/evahenningsen/Documents/MPGI_paper/Fig_2_GOSLIM.pdf", plot = figure2_plot_more, device = "pdf", width= 7.5, height=5, units = "in")
+ggsave(filename = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_2/Fig_2_GOSLIM_red.tiff", plot = figure2_plot_more, device = "tiff", width= 7.08, height=5, units = "in")
 
