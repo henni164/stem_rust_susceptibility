@@ -378,7 +378,7 @@ interest_list <- c("BDIBD1G0357000","BDIBD2G0000500","BDIBD4G0022900","BDIBD1G00
 Bd21_plotting <- lapply(bd_cluster_subsets, FUN = function(x){
   ggplot(x, aes(x = day, y = Log2FC, group = geneid)) +
     geom_line(size = 0.1) +
-    labs(x = "",
+    labs(x = "dpi",
          y = "") +
     scale_x_discrete(labels = c("2", "4", "6")) +
     scale_y_continuous(breaks = breaks_extended(3), limits = c(min(x$Log2FC), max(x$Log2FC))) +
@@ -386,10 +386,10 @@ Bd21_plotting <- lapply(bd_cluster_subsets, FUN = function(x){
     theme(panel.background = element_blank(), 
           axis.line = element_line(color = "black"), 
           #axis.text.x = element_text(color = "black"),
-          axis.text.x = element_blank(),
+          axis.text.x = element_text(color = "black", size = 8),
           axis.text.y = element_text(color = "black", size = 8),
           axis.title.y = element_blank(),
-          axis.title.x = element_blank(),
+          axis.title.x = element_text(color = "black", size = 8),
           legend.position = "none")
 })
 
@@ -411,7 +411,7 @@ for (i in 1:length(Bd21_plotting)) {
 W2691_plotting <- lapply(W2691_cluster_subsets, FUN = function(x){
   ggplot(x, aes(x = day, y = Log2FC, group = geneid)) +
     geom_line(size = 0.1) +
-    labs(x = "",
+    labs(x = "dpi",
          y = expression(paste(log[2], " fold change", sep = ""))) +
     scale_x_discrete(labels = c("2", "4", "6")) + 
     scale_y_continuous(breaks = breaks_extended(3), limits = c(min(x$Log2FC), max(x$Log2FC))) +
@@ -419,10 +419,10 @@ W2691_plotting <- lapply(W2691_cluster_subsets, FUN = function(x){
     theme(panel.background = element_blank(), 
           axis.line = element_line(color = "black"), 
           #axis.text.x = element_text(color = "black"),
-          axis.text.x = element_blank(),
+          axis.text.x = element_text(color = "black", size = 8),
           axis.text.y = element_text(color = "black", size = 8),
           axis.title.y = element_text(color = "black", size = 8),
-          axis.title.x = element_blank(),
+          axis.title.x = element_text(color = "black", size = 8),
           legend.position = "none")
 })
 
@@ -444,7 +444,7 @@ for (i in 1:length(W2691_plotting)) {
 Sr9b_plotting <- lapply(Sr9b_cluster_subsets, FUN = function(x){
   ggplot(x, aes(x = day, y = Log2FC, group = geneid)) +
     geom_line(size = 0.1) +
-    labs(x = "",
+    labs(x = "dpi",
          y = "") +
     scale_x_discrete(labels = c("2", "4", "6")) + 
     scale_y_continuous(breaks = breaks_extended(3), limits = c(min(x$Log2FC), max(x$Log2FC))) +
@@ -452,10 +452,10 @@ Sr9b_plotting <- lapply(Sr9b_cluster_subsets, FUN = function(x){
     theme(panel.background = element_blank(), 
           axis.line = element_line(color = "black"), 
           #axis.text.x = element_text(color = "black"),
-          axis.text.x = element_blank(),
+          axis.text.x = element_text(color = "black", size = 8),
           axis.text.y = element_text(color = "black", size = 8),
           axis.title.y = element_blank(),
-          axis.title.x = element_blank(),
+          axis.title.x = element_text(color = "black", size = 8),
           legend.position = "none")
 })
 
@@ -478,7 +478,7 @@ for (i in 1:length(Sr9b_plotting)) {
 
 W2691_name <- ggplot(W2691_cluster_subsets[[1]], aes(x = day, y = Log2FC, group = geneid)) +
   geom_line(size = 0.1) +
-  labs(x = "",
+  labs(x = "dpi",
        y = expression(paste(log[2], " fold change", sep = ""))) +
   scale_x_discrete(labels = c("2", "4", "6")) + 
   scale_y_continuous(breaks = breaks_extended(3), limits = c(min(W2691_cluster_subsets[[1]]$Log2FC), max(W2691_cluster_subsets[[1]]$Log2FC))) +
@@ -489,7 +489,7 @@ W2691_name <- ggplot(W2691_cluster_subsets[[1]], aes(x = day, y = Log2FC, group 
         #axis.text.x = element_blank(),
         axis.text.y = element_text(color = "black", size = 8),
         axis.title.y = element_text(color = "black", size = 8),
-        axis.title.x = element_blank(),
+        axis.title.x = element_text(color = "black", size = 8),
         legend.position = "none")
 W2691_name <- W2691_name + geom_line(data = subset(W2691_cluster_subsets[[1]], geneid == "TRAESCS4B02G346900"), inherit.aes = TRUE, color = "#D0270C")
 W2691_name <- W2691_name + geom_line(data = subset(W2691_cluster_subsets[[1]], geneid == "TRAESCS4D02G341800"), inherit.aes = TRUE, color = "#D0270C")
@@ -497,7 +497,7 @@ W2691_name <- W2691_name + geom_line(data = subset(W2691_cluster_subsets[[1]], g
 
 Sr9b_name <- ggplot(Sr9b_cluster_subsets[[1]], aes(x = day, y = Log2FC, group = geneid)) +
   geom_line(size = 0.1) +
-  labs(x = "",
+  labs(x = "dpi",
        y = "") +
   scale_x_discrete(labels = c("2", "4", "6")) + 
   scale_y_continuous(breaks = breaks_extended(3), limits = c(min(Sr9b_cluster_subsets[[1]]$Log2FC), max(Sr9b_cluster_subsets[[1]]$Log2FC))) +
@@ -508,7 +508,7 @@ Sr9b_name <- ggplot(Sr9b_cluster_subsets[[1]], aes(x = day, y = Log2FC, group = 
         #axis.text.x = element_blank(),
         axis.text.y = element_text(color = "black", size = 8),
         axis.title.y = element_blank(),
-        axis.title.x = element_blank(),
+        axis.title.x = element_text(color = "black", size = 8),
         legend.position = "none")
 
 Sr9b_name <- Sr9b_name + geom_line(data = subset(Sr9b_cluster_subsets[[1]], geneid == "TRAESCS4B02G346900"), inherit.aes = TRUE, color = "#D0270C")
@@ -516,7 +516,7 @@ Sr9b_name <- Sr9b_name + geom_line(data = subset(Sr9b_cluster_subsets[[1]], gene
 
 Bd21_name <- ggplot(bd_cluster_subsets[[1]], aes(x = day, y = Log2FC, group = geneid)) +
   geom_line(size = 0.1) +
-  labs(x = "",
+  labs(x = "dpi",
        y = "") +
   scale_x_discrete(labels = c("2", "4", "6")) + 
   scale_y_continuous(breaks = breaks_extended(3), limits = c(min(bd_cluster_subsets[[1]]$Log2FC), max(bd_cluster_subsets[[1]]$Log2FC))) +
@@ -527,7 +527,7 @@ Bd21_name <- ggplot(bd_cluster_subsets[[1]], aes(x = day, y = Log2FC, group = ge
         #axis.text.x = element_blank(),
         axis.text.y = element_text(color = "black", size = 8),
         axis.title.y = element_blank(),
-        axis.title.x = element_blank(),
+        axis.title.x = element_text(color = "black", size = 8),
         legend.position = "none")
 
 for (j in 1:length(interest_list)) {
@@ -544,43 +544,43 @@ single_point_plot <- ggplot() +
 
 W2691_lines_4 <- ggplot(W2691_cluster_subsets[[3]], aes(x = day, y = Log2FC, group = geneid)) +
   geom_line(size = 0.1) +
-  labs(x = "",
+  labs(x = "dpi",
        y = expression(paste(log[2], " fold change", sep = ""))) +
   scale_x_discrete(labels = c("2", "4", "6")) + 
   scale_y_continuous(breaks = breaks_extended(3), limits = c(min(W2691_cluster_subsets[[3]]$Log2FC), max(W2691_cluster_subsets[[3]]$Log2FC))) +
   scale_color_manual(values = c("#636363")) +
   theme(panel.background = element_blank(), 
         axis.line = element_line(color = "black"), 
-        axis.text.x = element_blank(),
+        axis.text.x = element_text(color = "black", size = 8),
         #axis.text.x = element_blank(),
         axis.text.y = element_text(color = "black", size = 8),
         axis.title.y = element_text(color = "black", size = 8),
-        axis.title.x = element_blank(),
+        axis.title.x = element_text(color = "black", size = 8),
         legend.position = "none")
 W2691_lines_4 <- W2691_lines_4 + geom_line(data = subset(W2691_cluster_subsets[[3]], geneid == "TRAESCS5D02G404600"), inherit.aes = TRUE, color = "#D0270C")
 
 
 W2691_lines_0 <- ggplot(W2691_cluster_subsets[[1]], aes(x = day, y = Log2FC, group = geneid)) +
   geom_line(size = 0.1) +
-  labs(x = "",
+  labs(x = "dpi",
        y = expression(paste(log[2], " fold change", sep = ""))) +
   scale_x_discrete(labels = c("2", "4", "6")) + 
   scale_y_continuous(breaks = breaks_extended(3), limits = c(min(W2691_cluster_subsets[[1]]$Log2FC), max(W2691_cluster_subsets[[1]]$Log2FC))) +
   scale_color_manual(values = c("#636363")) +
   theme(panel.background = element_blank(), 
         axis.line = element_line(color = "black"), 
-        axis.text.x = element_blank(),
+        axis.text.x = element_text(color = "black", size = 8),
         #axis.text.x = element_blank(),
         axis.text.y = element_text(color = "black", size = 8),
         axis.title.y = element_text(color = "black", size = 8),
-        axis.title.x = element_blank(),
+        axis.title.x = element_text(color = "black", size = 8),
         legend.position = "none")
 
 W2691_lines_0 <- W2691_lines_0 + geom_line(data = subset(W2691_cluster_subsets[[1]], geneid == "TRAESCS2B02G253500"), inherit.aes = TRUE, color = "#D0270C")
 
 Sr9b_lines_0 <- ggplot(Sr9b_cluster_subsets[[1]], aes(x = day, y = Log2FC, group = geneid)) +
   geom_line(size = 0.1) +
-  labs(x = "",
+  labs(x = "dpi",
        y = "") +
   scale_x_discrete(labels = c("2", "4", "6")) + 
   scale_y_continuous(breaks = breaks_extended(3), limits = c(min(Sr9b_cluster_subsets[[1]]$Log2FC), max(Sr9b_cluster_subsets[[1]]$Log2FC))) +
@@ -591,7 +591,7 @@ Sr9b_lines_0 <- ggplot(Sr9b_cluster_subsets[[1]], aes(x = day, y = Log2FC, group
         #axis.text.x = element_blank(),
         axis.text.y = element_text(color = "black", size = 8),
         axis.title.y = element_blank(),
-        axis.title.x = element_blank(),
+        axis.title.x = element_text(color = "black", size = 8),
         legend.position = "none")
 
 Sr9b_lines_0 <- Sr9b_lines_0 + geom_line(data = subset(Sr9b_cluster_subsets[[1]], geneid == "TRAESCS2B02G253500"), inherit.aes = TRUE, color = "#D0270C")
@@ -601,15 +601,15 @@ combined_plot <- egg::ggarrange(W2691_plot5_fix, Sr9b_networks[[2]], Bd21_networ
 combined_plot_w_text <- ggdraw(combined_plot) + draw_label("W2691", x = 0.18, y = 0.98, size = 10, fontface = "bold") +
   draw_label("W2691+Sr9b", x = 0.53, y = 0.98, size = 10, fontface = "bold") + 
   draw_label("Bd21-3", x = 0.85, y = 0.98, size = 10, fontface = "bold") +
-  draw_label("4", x = 0.06, y = 0.96, size = 8, fontface = "bold") +
-  draw_label("122", x = 0.38, y = 0.96, size = 8, fontface = "bold") +
-  draw_label("652", x = 0.7, y = 0.96, size = 8, fontface = "bold") +
-  draw_label("0", x = 0.06, y = 0.65, size = 8, fontface = "bold") +
-  draw_label("0", x = 0.38, y = 0.65, size = 8, fontface = "bold") +
-  draw_label("3087", x = 0.7, y = 0.65, size = 8, fontface = "bold") +
-  draw_label("0", x = 0.06, y = 0.32, size = 8, fontface = "bold") +
-  draw_label("0", x = 0.38, y = 0.32, size = 8, fontface = "bold") +
-  draw_label("4", x = 0.7, y = 0.32, size = 8, fontface = "bold") +
+  draw_label("cluster ID:4", x = 0.06, y = 0.96, size = 8, fontface = "bold") +
+  draw_label("cluster ID:122", x = 0.38, y = 0.96, size = 8, fontface = "bold") +
+  draw_label("cluster ID:652", x = 0.7, y = 0.96, size = 8, fontface = "bold") +
+  draw_label("cluster ID:0", x = 0.06, y = 0.659, size = 8, fontface = "bold") +
+  draw_label("cluster ID:0", x = 0.38, y = 0.659, size = 8, fontface = "bold") +
+  draw_label("cluster ID:3087", x = 0.7, y = 0.659, size = 8, fontface = "bold") +
+  draw_label("cluster ID:0", x = 0.06, y = 0.32, size = 8, fontface = "bold") +
+  draw_label("cluster ID:0", x = 0.38, y = 0.32, size = 8, fontface = "bold") +
+  draw_label("cluster ID:4", x = 0.7, y = 0.32, size = 8, fontface = "bold") +
   draw_label("n = 556", x = 0.14, y = 0.78, color = "black", size = 8) +
   draw_label("n = 1", x = 0.23, y = 0.78, color = "red", size = 8) +
   draw_label("n = 20", x = 0.47, y = 0.78, color = "black", size = 8) +

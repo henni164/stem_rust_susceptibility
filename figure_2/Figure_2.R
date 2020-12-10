@@ -401,7 +401,7 @@ all_results_w_go_descriptions$direction <- factor(all_results_w_go_descriptions$
 ## For next time: fix font size and scale for printing
 topgo_figure2 <- ggplot(all_results_w_go_descriptions, aes(x=dpi, y=GOTERM, fill=OoverALL)) +
   geom_tile(width=1, height=1) +
-  scale_fill_gradient2(low = "white", mid = "pink", high = "red", midpoint = 0.03, space = "Lab", name = "Sig:Ann", breaks = c(0, 0.05, 0.1 ,0.15), labels = c("0", "0.05", "0.1", "0.15"), limits = c(0,0.15)) + 
+  scale_fill_gradient2(low = "white", mid = "pink", high = "red", midpoint = 0.03, space = "Lab", name = "Sig:Ann", breaks = c(0.001, 0.05, 0.1 ,0.15), labels = c("0.001", "0.05", "0.1", "0.15"), limits = c(0,0.15)) + 
   facet_grid(direction + domain ~ genotype, scales = "free_y", labeller = label_parsed) +
   theme(
     axis.text.x = element_text(size = 10, color="black"),
@@ -428,7 +428,7 @@ topgo_figure2 <- ggplot(all_results_w_go_descriptions, aes(x=dpi, y=GOTERM, fill
     #legend.box.background = element_rect(fill = "transparent"),
     legend.box.background=element_blank(),
     legend.text=element_text(size=10),
-    legend.title=element_text(size=10),
+    legend.title=element_text(size=10, vjust = 1),
     strip.text.x=element_text(size=10),
     legend.key.height = unit(0.1, "in"))
 
@@ -438,5 +438,5 @@ figure2_plot_more$heights[17] <- 0*figure2_plot_more$heights[17]
 as_ggplot(figure2_plot_more)
 
 
-ggsave(filename = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_2/Fig_2_GOSLIM_red.tiff", plot = figure2_plot_more, device = "tiff", width= 7.08, height=5, units = "in")
+ggsave(filename = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_2/Fig_2_GOSLIM.tiff", plot = figure2_plot_more, device = "tiff", width= 7.08, height=5, units = "in")
 

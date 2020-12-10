@@ -1,0 +1,167 @@
+# Figure 3 plotting code
+## Eva
+## Started 10/01/2020
+library(network)
+library(ggplot2)
+library(GGally)
+library(sna)
+library(ggnetwork)
+library(dplyr)
+library(stringr)
+library(stringi)
+library(cowplot)
+library(scales)
+library(reshape2)
+library(tidyr)
+library(egg)
+library(ggpubr)
+
+
+options(scipen = 999)
+set.seed(204)
+setwd("/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_s3")
+
+## Brachy plot loop
+
+Bd21_files <- list.files(path = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_s3/Bd21", pattern = ".txt", full.names = TRUE, recursive = FALSE)
+Bd21_files <- as.vector(Bd21_files)
+
+Bd21_dat <- lapply(Bd21_files, FUN = read.delim, sep = "\t", header = TRUE, colClasses = c("character", "character","numeric"))
+
+Bd21_networks <- lapply(Bd21_dat, FUN = function(x){
+  Bd21_net <- network(x, directed = FALSE, multiple = FALSE, bipartite = FALSE, matrix.type = "edgelist")
+  Bd21_names_vec <- ggnetwork(Bd21_net)$vertex.names
+  Bd21_names_vec <- unique(Bd21_names_vec)
+  Bd21_net %v% "importance" = ifelse(Bd21_names_vec %in% c("10357000", "2102231900","2202253500","2302236800",
+                                                           "20000500","40022900","1102070400","1202088900","1302072900",
+                                                           "10091300","40011900","5102019200","530202460","5302424200",
+                                                           "10234900","2102109700","2202127700","2302109900","10280300",
+                                                           "10628300","4102116000","4302189600","7302452900","10110600",
+                                                           "5302404600","11026800","4202346900","4302341800","30030500",
+                                                           "6102083200","6202113900","6302077000"), "yes", "no")
+  
+  #ggnetwork(Bd21_net, layout = "fruchtermanreingold", weights = "score")
+  Bd21_plot <- ggplot(Bd21_net, aes(x = x, y = y, xend = xend, yend = yend)) +
+    scale_color_manual(values = c("#000000","#F00000")) +
+    scale_alpha_manual(values = c(0.7, 1)) +
+    scale_size_manual(values = c(0.8,1)) +
+    geom_edges(color = "grey25", alpha = 0.1, size = 0.4) +
+    geom_nodes(aes(color = importance, alpha = importance, size = importance)) +
+    theme_blank() +
+    theme(legend.position = "none")
+  
+  Bd21_plot_data <- as.data.frame(Bd21_plot$data)
+  Bd21_important_dat <- subset(Bd21_plot_data, importance == "yes")
+  
+  Bd21_final_plot <- Bd21_plot + geom_edges(data = Bd21_important_dat, color = "grey25", alpha = 0.1, size = 0.4, inherit.aes = TRUE) + geom_nodes(data = Bd21_important_dat, color = "#F00000", size = 1, inherit.aes = TRUE)
+  
+})
+
+## W2691 plot loop
+
+W2691_files <- list.files(path = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_s3/W2691", pattern = ".txt", full.names = TRUE, recursive = FALSE)
+W2691_files <- as.vector(W2691_files)
+
+W2691_dat <- lapply(W2691_files, FUN = read.delim, sep = "\t", header = TRUE, colClasses = c("character", "character","numeric"))
+
+W2691_networks <- lapply(W2691_dat, FUN = function(x){
+  W2691_net <- network(x, directed = FALSE, multiple = FALSE, bipartite = FALSE, matrix.type = "edgelist")
+  W2691_names_vec <- ggnetwork(W2691_net)$vertex.names
+  W2691_names_vec <- unique(W2691_names_vec)
+  W2691_net %v% "importance" = ifelse(W2691_names_vec %in% c("10357000", "2102231900","2202253500","2302236800",
+                                                             "20000500","40022900","1102070400","1202088900","1302072900",
+                                                             "10091300","40011900","5102019200","530202460","5302424200",
+                                                             "10234900","2102109700","2202127700","2302109900","10280300",
+                                                             "10628300","4102116000","4302189600","7302452900","10110600",
+                                                             "5302404600","11026800","4202346900","4302341800","30030500",
+                                                             "6102083200","6202113900","6302077000"), "yes", "no")
+  
+  #ggnetwork(W2691_net, layout = "fruchtermanreingold", weights = "score")
+  W2691_plot <- ggplot(W2691_net, aes(x = x, y = y, xend = xend, yend = yend)) +
+    scale_color_manual(values = c("#000000","#F00000")) +
+    scale_alpha_manual(values = c(0.7, 1)) +
+    scale_size_manual(values = c(0.8,1)) +
+    geom_edges(color = "grey25", alpha = 0.1, size = 0.4) +
+    geom_nodes(aes(color = importance, alpha = importance, size = importance)) +
+    theme_blank() +
+    theme(legend.position = "none")
+  
+  W2691_plot_data <- as.data.frame(W2691_plot$data)
+  W2691_important_dat <- subset(W2691_plot_data, importance == "yes")
+  
+  W2691_final_plot <- W2691_plot + geom_edges(data = W2691_important_dat, color = "grey25", alpha = 0.1, size = 0.4, inherit.aes = TRUE) + geom_nodes(data = W2691_important_dat, color = "#F00000", size = 1, inherit.aes = TRUE)
+  
+})
+
+## Sr9b plot loop
+
+Sr9b_files <- list.files(path = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_s3/Sr9b", pattern = ".txt", full.names = TRUE, recursive = FALSE)
+Sr9b_files <- as.vector(Sr9b_files)
+
+Sr9b_dat <- lapply(Sr9b_files, FUN = read.delim, sep = "\t", header = TRUE, colClasses = c("character", "character","numeric"))
+
+Sr9b_networks <- lapply(Sr9b_dat, FUN = function(x){
+  Sr9b_net <- network(x, directed = FALSE, multiple = FALSE, bipartite = FALSE, matrix.type = "edgelist")
+  Sr9b_names_vec <- ggnetwork(Sr9b_net)$vertex.names
+  Sr9b_names_vec <- unique(Sr9b_names_vec)
+  Sr9b_net %v% "importance" = ifelse(Sr9b_names_vec %in% c("10357000","20000500","40022900","10091300","40011900","10234900","10280300","10628300",
+                                                           "10110600","11026800","30030500","4102116000","4302189600","7302452900","6102083200",
+                                                           "6202113900","6302077000","5102019200","5302024600","5302424200","1102070400","1202088900",
+                                                           "1302072900","2102109700","2202127700","2302109900","2102231900","2202253500","2302236800",
+                                                           "4202346900","4302341800","5302404600"), "yes","no")
+  
+  #ggnetwork(Sr9b_net, layout = "fruchtermanreingold", weights = "score")
+  Sr9b_plot <- ggplot(Sr9b_net, aes(x = x, y = y, xend = xend, yend = yend)) +
+    scale_color_manual(values = c("#000000","#F00000")) +
+    scale_alpha_manual(values = c(0.7, 1)) +
+    scale_size_manual(values = c(0.8,1)) +
+    geom_edges(color = "grey25", alpha = 0.1, size = 0.4) +
+    geom_nodes(aes(color = importance, alpha = importance, size = importance)) +
+    theme_blank() +
+    theme(legend.position = "none")
+  
+  Sr9b_plot_data <- as.data.frame(Sr9b_plot$data)
+  Sr9b_important_dat <- subset(Sr9b_plot_data, importance == "yes")
+  
+  Sr9b_final_plot <- Sr9b_plot + geom_edges(data = Sr9b_important_dat, color = "grey25", alpha = 0.1, size = 0.4, inherit.aes = TRUE) + geom_nodes(data = Sr9b_important_dat, color = "#F00000", size = 1, inherit.aes = TRUE)
+  
+})
+
+
+combined_plot <- egg::ggarrange(W2691_networks[[1]], Sr9b_networks[[1]], Bd21_networks[[5]], W2691_networks[[4]], Sr9b_networks[[6]], Bd21_networks[[4]], W2691_networks[[5]], Sr9b_networks[[2]], Bd21_networks[[6]], W2691_networks[[6]], Sr9b_networks[[3]], Bd21_networks[[3]], ncol = 3)
+combined_plot_w_text <- ggdraw(combined_plot) + draw_label("W2691", x = 0.16, y = 0.99, size = 10, fontface = "bold") +
+  draw_label("W2691+Sr9b", x = 0.51, y = 0.99, size = 10, fontface = "bold") + 
+  draw_label("Bd21-3", x = 0.83, y = 0.99, size = 10, fontface = "bold") +
+  draw_label("cluster ID:0", x = 0.06, y = 0.97, size = 8, fontface = "bold") +
+  draw_label("cluster ID:0", x = 0.36, y = 0.97, size = 8, fontface = "bold") +
+  draw_label("cluster ID:4", x = 0.68, y = 0.97, size = 8, fontface = "bold") +
+  draw_label("cluster ID:3", x = 0.06, y = 0.74, size = 8, fontface = "bold") +
+  draw_label("cluster ID:4", x = 0.36, y = 0.74, size = 8, fontface = "bold") +
+  draw_label("cluster ID:35", x = 0.68, y = 0.74, size = 8, fontface = "bold") +
+  draw_label("cluster ID:4", x = 0.06, y = 0.47, size = 8, fontface = "bold") +
+  draw_label("cluster ID:122", x = 0.36, y = 0.47, size = 8, fontface = "bold") +
+  draw_label("cluster ID:51", x = 0.68, y = 0.47, size = 8, fontface = "bold") +
+  draw_label("cluster ID:5", x = 0.06, y = 0.22, size = 8, fontface = "bold") +
+  draw_label("cluster ID:1916", x = 0.36, y = 0.22, size = 8, fontface = "bold") +
+  draw_label("cluster ID:272", x = 0.68, y = 0.22, size = 8, fontface = "bold")
+
+ggsave("Figure_S3.tiff", combined_plot_w_text, device = "tiff", width = 7.08, height = 10, units = "in")
+
+blank_plot <- ggplot(data = NULL) + theme_void()
+  
+
+combined_plot_2 <- egg::ggarrange(W2691_networks[[8]], Sr9b_networks[[4]], Bd21_networks[[7]], W2691_networks[[2]], Sr9b_networks[[5]], Bd21_networks[[1]], W2691_networks[[7]], blank_plot, Bd21_networks[[2]], W2691_networks[[3]], ncol = 3)
+combined_plot_w_text_2 <- ggdraw(combined_plot_2) + draw_label("W2691", x = 0.16, y = 0.99, size = 10, fontface = "bold") +
+  draw_label("W2691+Sr9b", x = 0.51, y = 0.99, size = 10, fontface = "bold") + 
+  draw_label("Bd21-3", x = 0.83, y = 0.99, size = 10, fontface = "bold") +
+  draw_label("cluster ID:8", x = 0.06, y = 0.96, size = 8, fontface = "bold") +
+  draw_label("cluster ID:2772", x = 0.36, y = 0.96, size = 8, fontface = "bold") +
+  draw_label("cluster ID:652", x = 0.68, y = 0.96, size = 8, fontface = "bold") +
+  draw_label("cluster ID:11", x = 0.06, y = 0.7, size = 8, fontface = "bold") +
+  draw_label("cluster ID:3133", x = 0.36, y = 0.7, size = 8, fontface = "bold") +
+  draw_label("cluster ID:1662", x = 0.68, y = 0.7, size = 8, fontface = "bold") +
+  draw_label("cluster ID:60", x = 0.06, y = 0.45, size = 8, fontface = "bold") +
+  draw_label("cluster ID:1848", x = 0.68, y = 0.45, size = 8, fontface = "bold") +
+  draw_label("cluster ID:178", x = 0.06, y = 0.22, size = 8, fontface = "bold")
+
+ggsave("Figure_S3_part2.tiff", combined_plot_w_text_2, device = "tiff", width = 7.08, height = 10, units = "in")
