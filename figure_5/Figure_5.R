@@ -39,13 +39,13 @@ library(gtable)
 goterms <- as.data.frame(Term(GOTERM))
 setDT(goterms, keep.rownames = TRUE)[]
 colnames(goterms) <- c("GOID", "GOTERM")
-brachyGENESLIM2GO <- readMappings(file = "/Users/evahenningsen/Documents/MPGI_paper/Figure_5/brachy_goslims_space.txt")
+brachyGENESLIM2GO <- readMappings(file = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_5/brachy_goslims_space.txt")
 brachyGENESLIMUniverse <- names(brachyGENESLIM2GO)
-wheatGENESLIM2GO <- readMappings(file = "/Users/evahenningsen/Documents/MPGI_paper/Figure_5/wheat_goslims_space.txt")
+wheatGENESLIM2GO <- readMappings(file = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_5/wheat_goslims_space.txt")
 wheatslimUniverse <- names(wheatGENESLIM2GO)
 
 #brachypodium automation MF
-brachy_files <- list.files(path = "/Users/evahenningsen/Documents/MPGI_paper/Figure_5/brachy_networks", full.names = TRUE, recursive = FALSE)
+brachy_files <- list.files(path = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_5/brachy_networks", full.names = TRUE, recursive = FALSE)
 brachy_files <- as.vector(brachy_files)
 
 brachy_dat <- lapply(brachy_files, FUN = read.delim, sep = "\t", header = FALSE)
@@ -93,7 +93,7 @@ for(k in 1:5) {
 }
 
 #W2691 automation
-W2691_files <- list.files(path = "/Users/evahenningsen/Documents/MPGI_paper/Figure_5/W2691_networks", full.names = TRUE, recursive = FALSE)
+W2691_files <- list.files(path = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_5/W2691_networks", full.names = TRUE, recursive = FALSE)
 W2691_files <- as.vector(W2691_files)
 
 W2691_dat <- lapply(W2691_files, FUN = read.delim, sep = "\t", header = FALSE)
@@ -142,7 +142,7 @@ for(m in 1:8) {
 
 ## Sr9b automation
 
-Sr9b_files <- list.files(path = "/Users/evahenningsen/Documents/MPGI_paper/Figure_5/Sr9b_networks", full.names = TRUE, recursive = FALSE)
+Sr9b_files <- list.files(path = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_5/Sr9b_networks", full.names = TRUE, recursive = FALSE)
 Sr9b_files <- as.vector(Sr9b_files)
 
 Sr9b_dat <- lapply(Sr9b_files, FUN = read.delim, sep = "\t", header = FALSE)
@@ -395,7 +395,7 @@ all_results <- rbind(all_brachy_MF, all_brachy_CC, all_W2691_MF, all_W2691_CC, a
 
 all_results_w_go_descriptions <- left_join(x = all_results, y = goterms, by = "GOID")
 
-s_gene_info <- read.delim("/Users/evahenningsen/Documents/MPGI_paper/Figure_5/clusters_and_sgenes.txt", sep = "\t", header = TRUE)
+s_gene_info <- read.delim("/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_5/clusters_and_sgenes.txt", sep = "\t", header = TRUE)
 
 all_results_w_go_descriptions <- left_join(x = all_results_w_go_descriptions, y = s_gene_info, by = c("genotype", "cluster"))
 
@@ -409,6 +409,7 @@ all_results_w_go_descriptions$OoverE <- all_results_w_go_descriptions$Significan
 all_results_w_go_descriptions$OoverALL <- all_results_w_go_descriptions$Significant/all_results_w_go_descriptions$Annotated
 
 all_results_w_go_descriptions$gene <- as.factor(all_results_w_go_descriptions$gene)
+levels(all_results_w_go_descriptions$gene) <- c("AGD2"=expression(paste(italic("AGD2"))), "BI-1"=expression(paste(italic("BI-1"))), "DMR6"=expression(paste(italic("DMR6"))), "DND1"=expression(paste(italic("DND1"))), "FAH1"=expression(paste(italic("FAH1"))), "IBR3"=expression(paste(italic("IBR3"))), "VAD1"=expression(paste(italic("VAD1"))), "WRKY25"=expression(paste(italic("WRKY25"))))
 all_results_w_go_descriptions$cluster <- as.factor(all_results_w_go_descriptions$cluster)
 
 levels(all_results_w_go_descriptions$GOTERM)[4] <- gsub("DNA-binding transcription factor activity", "DNA-\nbinding\n transcription\n factor\n activity", levels(all_results_w_go_descriptions$GOTERM)[4])
@@ -466,5 +467,5 @@ gtable_show_layout(figure2_plot_more)
 figure2_plot_more$heights[8] <- 0.7*figure2_plot_more$heights[8]
 as_ggplot(figure2_plot_more)
 
-ggsave(filename = "/Users/evahenningsen/Documents/MPGI_paper/Figure_5/Fig_5_GOSLIM.tiff", plot = figure2_plot_more, device = "tiff", width= 10, height=7.5, units = "in")
+ggsave(filename = "/Users/evahenningsen/Documents/GitHub/stem_rust_susceptibility/figure_5/Fig_5_GOSLIM.tiff", plot = figure2_plot_more, device = "tiff", width= 10, height=7.5, units = "in")
 

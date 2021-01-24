@@ -598,7 +598,7 @@ Sr9b_lines_0 <- Sr9b_lines_0 + geom_line(data = subset(Sr9b_cluster_subsets[[1]]
 
 
 combined_plot <- egg::ggarrange(W2691_plot5_fix, Sr9b_networks[[2]], Bd21_networks[[7]], W2691_lines_4, Sr9b_plotting[[3]], Bd21_plotting[[5]], W2691_plot_f_1_1, Sr9b_final_plot_1_1, single_point_plot, W2691_lines_0, Sr9b_lines_0, Bd21_plotting[[8]], W2691_plot_f_1_2, Sr9b_final_plot_1_2, Bd21_networks[[5]], W2691_name, Sr9b_name, Bd21_name, nrow = 6, ncol = 3, widths = c(1,1,1), heights = c(2,0.75,2,0.75,2,0.75))
-combined_plot_w_text <- ggdraw(combined_plot) + draw_label("W2691", x = 0.18, y = 0.98, size = 10, fontface = "bold") +
+combined_plot_w_text <- ggdraw(combined_plot) + draw_label("W2691", x = 0.16, y = 0.98, size = 10, fontface = "bold") +
   draw_label("W2691+Sr9b", x = 0.53, y = 0.98, size = 10, fontface = "bold") + 
   draw_label("Bd21-3", x = 0.85, y = 0.98, size = 10, fontface = "bold") +
   draw_label("cluster ID:4", x = 0.06, y = 0.96, size = 8, fontface = "bold") +
